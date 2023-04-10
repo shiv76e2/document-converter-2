@@ -84,8 +84,8 @@ export default {
     geneAngReq: function () {
       let tpl = '';
       tpl += '/**##3 */\n';
-      tpl += '@JsonProperty(\'##1\', ##2) \n'
-      tpl += 'public ##1: ##2 = \'\'';
+      tpl += "@JsonProperty('##1', ##2) \n";
+      tpl += "public ##1: ##2 = '';";
       this.template = tpl;
     },
 
