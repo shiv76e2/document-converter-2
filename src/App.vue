@@ -1,8 +1,11 @@
 <template>
   <div id="app">
-    <p>tips: excelで先頭文字を大文字にする関数=> =PROPER(A2) <p>
-    <button @click="convert">Convert</button>
-    <br />
+    <p>tips: excelで先頭文字を大文字にする関数=> =PROPER(A2)</p>
+    <p>
+      <button @click="convert">Convert</button>
+      <br />
+    </p>
+
     <h3>excel</h3>
     <textarea v-model="input" name="example1" cols="50" rows="30"> </textarea>
     <br />
@@ -12,7 +15,7 @@
     <!--button @click="geneApiRes">【API】Responce</button-->
     <!--button @click="toToDomainModel">【API】DomainModel</button-->
     <br />
-    <button @click="toRequest">【画面】Request</button>
+    <button @click="geneAngReq">【画面】Request</button>
     <br />
     <textarea v-model="template" name="example2" cols="50" rows="10"></textarea>
     <h3>output</h3>
@@ -78,7 +81,13 @@ export default {
       tpl += 'public ##2 ##1 {get; set;}';
       this.template = tpl;
     },
-    geneApiMod: function () {},
+    geneAngReq: function () {
+      let tpl = '';
+      tpl += '/**##3 */\n';
+      tpl += '@JsonProperty(\'##1\', ##2) \n'
+      tpl += 'public ##1: ##2 = \'\'';
+      this.template = tpl;
+    },
 
     toRequest: function () {
       this.code = this.toCSfield(this.input);
