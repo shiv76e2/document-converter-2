@@ -1,13 +1,20 @@
 <template>
   <div id="app">
     <button @click="convert">Convert</button>
-    <button @click="toRequest">【API】Request</button>
-    <button @click="toResponce">【API】Responce</button>
-    <button @click="toToDomainModel">【API】DomainModel</button>
     <br />
+    <h3>excel</h3>
     <textarea v-model="input" name="example1" cols="50" rows="30"> </textarea>
-    <textarea v-model="template" name="example2" cols="50" rows="30"></textarea>
-    <h2>output</h2>
+    <br />
+    <h3>template</h3>
+    <br />
+    <button @click="geneApiReq">【API】Request</button>
+    <!--button @click="geneApiRes">【API】Responce</button-->
+    <!--button @click="toToDomainModel">【API】DomainModel</button-->
+    <br />
+    <button @click="toRequest">【画面】Request</button>
+    <br />
+    <textarea v-model="template" name="example2" cols="50" rows="10"></textarea>
+    <h3>output</h3>
 
     <button @click="copy">copy to clipboard</button>
     <pre
@@ -28,7 +35,7 @@ export default {
   data() {
     return {
       input: ``,
-      template: '##1 ##2 ##3 ##1 ##2 ##3',
+      template: '##1 ##2 ##3',
       code: '',
       responceCode: ``,
     };
@@ -54,6 +61,24 @@ export default {
       //this.template = this.
       //this.responceCode = this.toCSfield(this.input);
     },
+    geneApiReq: function () {
+      let tpl = '';
+      tpl += '/// <summary>\n';
+      tpl += '/// ##3 \n';
+      tpl += '/// </summary>\n';
+      tpl += 'public ##2 ##1 {get; set;}';
+      this.template = tpl;
+    },
+    geneApiRes: function () {
+      let tpl = '';
+      tpl += '/// <summary>\n';
+      tpl += '/// ##3 \n';
+      tpl += '/// </summary>\n';
+      tpl += 'public ##2 ##1 {get; set;}';
+      this.template = tpl;
+    },
+    geneApiMod: function () {},
+
     toRequest: function () {
       this.code = this.toCSfield(this.input);
       this.responceCode = this.toCSfield(this.input);
