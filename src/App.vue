@@ -1,10 +1,6 @@
 <template>
   <div id="app">
-    <p>tips: excelで先頭文字を大文字にする関数=> =PROPER(A2)</p>
-    <p>
-      <button @click="convert">Convert</button>
-      <br />
-    </p>
+    <p>tips: excelで先頭文字を大文字にする関数=> =PROPER()</p>
 
     <h3>excel</h3>
     <textarea v-model="input" name="example1" cols="50" rows="30"> </textarea>
@@ -15,10 +11,19 @@
     <!--button @click="geneApiRes">【API】Responce</button-->
     <!--button @click="toToDomainModel">【API】DomainModel</button-->
     <br />
-    <button @click="geneAngReq">【画面】Request</button>
+    <button @click="geneAngRes">【画面】Result1</button>
+    <button @click="geneAngRes2">【画面】Result2</button>
+    <button @click="geneAngDpl">【画面】Display</button>
+    <button @click="geneAngResToDpl">【画面】Result→Display</button>
     <br />
     <textarea v-model="template" name="example2" cols="50" rows="10"></textarea>
+
     <h3>output</h3>
+
+    <p>
+      <button @click="convert">Convert</button>
+      <br />
+    </p>
 
     <button @click="copy">copy to clipboard</button>
     <pre
@@ -65,6 +70,9 @@ export default {
       //this.template = this.
       //this.responceCode = this.toCSfield(this.input);
     },
+    copy() {
+      navigator.clipboard.writeText(this.code);
+    },
     geneApiReq: function () {
       let tpl = '';
       tpl += '/// <summary>\n';
@@ -81,14 +89,35 @@ export default {
       tpl += 'public ##2 ##1 {get; set;}';
       this.template = tpl;
     },
-    geneAngReq: function () {
+    geneAngRes: function () {
       let tpl = '';
       tpl += '/**##3 */\n';
       tpl += "@JsonProperty('##1', ##2) \n";
       tpl += "public ##1: ##2 = '';";
       this.template = tpl;
     },
+    geneAngRes2: function () {
+      let tpl = '';
+      tpl += '##1: rowData.##1!,';
+      //slipNumber: rowData.slipNumber!,
+      this.template = tpl;
+    },
+    geneAngDpl: function () {
+      let tpl = '';
+      tpl += '/**##3 */\n';
+      tpl += 'public  ##1!: ##2;';
+      this.template = tpl;
+    },
+    geneAngResToDpl: function () {
+      let tpl = '';
+      tpl += '##1: rowData.##1!,';
+      this.template = tpl;
+    },
+    //public productName!: string;
+    // /**品名 */
+    //public productName!: string;
 
+    /*
     toRequest: function () {
       this.code = this.toCSfield(this.input);
       this.responceCode = this.toCSfield(this.input);
@@ -175,6 +204,7 @@ export default {
     toUpperFirstLetter: function (str) {
       return str.charAt(0).toUpperCase() + str.substring(1).toLowerCase();
     },
+    */
   },
 };
 </script>
