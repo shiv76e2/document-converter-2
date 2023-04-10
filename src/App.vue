@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <p>tips: excelで先頭文字を大文字にする関数=> =PROPER(A2) <p>
     <button @click="convert">Convert</button>
     <br />
     <h3>excel</h3>
