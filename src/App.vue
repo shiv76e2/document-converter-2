@@ -1,10 +1,12 @@
 <template>
   <div id="app">
-    <button @click="toRequest">Request</button>
-    <button @click="toResponce">Responce</button>
-    <button @click="toToDomainModel">DomainModel</button>
+    <button @click="convert">Convert</button>
+    <button @click="toRequest">【API】Request</button>
+    <button @click="toResponce">【API】Responce</button>
+    <button @click="toToDomainModel">【API】DomainModel</button>
     <br />
     <textarea v-model="input" name="example1" cols="50" rows="30"> </textarea>
+    <textarea v-model="template" name="example2" cols="50" rows="30"></textarea>
     <h2>output</h2>
 
     <button @click="copy">copy to clipboard</button>
@@ -26,11 +28,32 @@ export default {
   data() {
     return {
       input: ``,
+      template: '##1 ##2 ##3 ##1 ##2 ##3',
       code: '',
       responceCode: ``,
     };
   },
   methods: {
+    convert: function () {
+      let rows = this.input.split('\n');
+      rows = rows.filter((x) => x != '');
+
+      let ret = '';
+      rows.forEach((row, i_row) => {
+        let items = row.split('\t');
+        items = items.filter((x) => x != '');
+        let loopVal = this.template.replace(/##1/g, items[0]);
+        loopVal = loopVal.replace(/##2/g, items[1]);
+        loopVal = loopVal.replace(/##3/g, items[2]);
+        ret += loopVal + '\n';
+      });
+
+      //this.toUpperFirstLetter(items[0]) +
+      this.code = ret;
+      //this.code = this.toCSfield(this.input);
+      //this.template = this.
+      //this.responceCode = this.toCSfield(this.input);
+    },
     toRequest: function () {
       this.code = this.toCSfield(this.input);
       this.responceCode = this.toCSfield(this.input);
